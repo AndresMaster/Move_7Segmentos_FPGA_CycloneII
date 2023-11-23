@@ -35,9 +35,139 @@ print("================================================")
 print("================================================")
 print("================================================")
 
+print("library ieee;")
+print("use ieee.std_logic_1164.all;")
+print("use ieee.numeric_std.all;")
+
+print("entity MEF_MyName is")
+print("    port ")
+print("    (")
+print("	 Clk_i, X1, X0 : in std_logic;")
+print("	 HEX_3, HEX_2, HEX_1, HEX_0 : out std_logic_vector(6 downto 0)")
+print("    );")
+print("end MEF_MyName;")
+
+print("architecture Behavioral of MEF_MyName is")
+print("component FFJK is")
+print("    port ")
+print("    (")
+print("	 J, K, Clk_i : in std_logic;")
+print("	 Q_o          : out std_logic")
+print("    );")
+print("end component;")
+
+print("signal A, B, C, D, E, F, JsA, KsA, JsB, KsB, JsC, KsC, JsD, KsD, JSE, KSE, JSF, KSF, clk_div : std_logic := '0';")
+print("signal Entradas : std_logic_vector(4 downto 0);")
+
+print("begin")
+
+print("clock_div : entity work.clk_div generic map")
+print("	(")
+print("		DIV_TICKS => 10e6")
+print("	)")
+print("	port map")
+print("	(")
+print("		 clk_i 	=> Clk_i,")
+print("		 clk_o	=> clk_div")
+print("	);")
 
 
+# Conexiones de los componentes FFJK
 
+# Configuración de FFJKF
+print("FFJKF: FFJK port map ")
+print("    (")
+print("    Clk_i => clk_div ,")
+print("    J => JsF,")
+print("    K => KsF ,")
+print("    Q_o => F")
+print("    );")
+
+# Configuración de FFJKE
+print("FFJKE: FFJK port map ")
+print("    (")
+print("    Clk_i => F ,")
+print("    J => JsE,")
+print("    K => KsE ,")
+print("    Q_o => E")
+print("    );")
+
+# Configuración de FFJKD
+print("FFJKD: FFJK port map ")
+print("    (")
+print("    Clk_i => E ,")
+print("    J => JsD,")
+print("    K => KsD ,")
+print("    Q_o => D")
+print("    );")
+
+# Configuración de FFJKC
+print("FFJKC: FFJK port map ")
+print("    (")
+print("    Clk_i => D ,")
+print("    J => JsC,")
+print("    K => KsC,")
+print("    Q_o => C")
+print("    );")
+
+# Configuración de FFJKB
+print("FFJKB: FFJK port map ")
+print("    (")
+print("    Clk_i => C ,")
+print("    J => Jsb,")
+print("    K => Ksb ,")
+print("    Q_o => B")
+print("    );")
+
+# Configuración de FFJKA
+print("FFJKA: FFJK port map ")
+print("    (")
+print("    Clk_i => B,")
+print("    J => Jsa,")
+print("    K => KsA,")
+print("    Q_o => A")
+print("    );")
+
+# Asignaciones de las señales JSA, JSB, JSC, JSD, JSE, JSF, KSA, KSB, KSC, KSD, KSE, KSF
+
+# Asignación de JSA
+print("JSA    <=    (not A and not B and not C and not D and not E and not F and X1 and not X0) or (A and not B and not C and F) or (A and not B and not C and E) or (A and not B and not C and D) or (A and not B and C and not D and not E and not F) or (A and not B and not D and not E and not F and not X1 and X0);")
+
+# Asignación de JSB
+print("JSB    <=    (not A and B and not X1 and X0) or (not A and B and F) or (not A and B and E) or (not A and B and D) or (not A and B and C) or (A and not B and not C and not D and not E and not F) or (A and not B and not C and not D and not E and X1 and not X0);")
+
+# Asignación de JSC
+print("JSC    <=    (not A and not B and D and E and F and not X1 and X0) or (not A and not B and C) or (not A and B and not C and not D and not E and not F) or (not A and C and F) or (not A and C and E) or (not A and C and D) or (A and not B and not C and not D and not E and not F) or (A and not B and not C and not D and not E and X1 and not X0) or (not A and B and not C and not D and not E and X1 and not X0) or (not A and B and not D and not E and not F and not X1 and X0);")
+
+# Asignación de JSD
+print("JSD    <=    (not A and not B and E and F and not X1 and X0) or (not A and not B and D) or (not A and B and not D and not E and not F) or (not A and D and F) or (not A and D and E) or (A and not B and not D and not E and not F) or (not B and not C and D and F) or (not B and not C and D and E) or (not A and not B and not E and not F and X1 and not X0) or (not A and B and not D and not E and X1 and not X0) or (not A and B and not E and not F and not X1 and X0) or (A and not B and not C and not D and not E and X1 and not X0) or (A and not B and not C and not E and not F and not X1 and X0);")
+
+# Asignación de JSE
+print("JSE    <=    (not A and not B and not C and F and not X1 and X0) or (not A and not B and not C and E) or (not A and not B and not D and F and not X1 and X0) or (not A and not B and not D and E) or (not A and not E and not F and X1 and not X0) or (not A and E and not X1 and X0) or (not A and E and F) or (not A and B and not E and not F) or (not B and not C and E and F) or (A and not B and not C and not E and not F) or (A and not B and not D and not E and not F) or (not A and B and not E and X1 and not X0) or (A and not B and not C and not E and X1 and not X0) or (A and not B and not C and not F and not X1 and X0);")
+
+# Asignación de JSF
+print("JSF    <=    (not A and not B and not C and F) or (not A and not X1 and X0) or (not A and X1 and not X0) or (not A and not B and not D and F) or (not A and not B and not E and F) or (not A and C and D and E and not F) or (not A and B and not F) or (not B and not C and not X1 and X0) or (not B and not C and X1 and not X0) or (A and not B and not C and not F) or (A and not B and not D and not E and not F);")
+
+# Asignación de KSA
+print("KSA    <=    (not A) or (not B and not C and not D and not E and not F) or (not B and not C and not D and not E and X1) or (not B and not C and X1 and X0) or (not B and not D and not E and not F and X0);")
+
+# Asignación de KSB
+print("KSB    <=    (not A and not B) or (not A and not C and not D and not E and not F) or (not A and not C and not D and not E and X1) or (not A and X1 and X0) or (not B and not C and F) or (not B and not C and E) or (not B and not C and D) or (not B and C and not D and not E and not F) or (not B and not D and not E and not F and X0);")
+
+# Asignación de KSC
+print("KSC    <=    (not A and not B and not C) or (not A and X1 and X0) or (not A and not C and F) or (not A and not C and E) or (not A and not C and D) or (not A and B and C and not D and not E and not F) or (not B and not C and F) or (not B and not C and E) or (not B and not C and D) or (A and not B and C and not D and not E and not F) or (not A and not B and not D and not E and not F and X1) or (not A and B and not D and not E and not F and X0) or (not A and B and not D and not E and F and X1) or (A and not B and not D and not E and not F and X0);")
+
+# Asignación de KSD
+print("KSD    <=    (not A and not B and not D) or (not A and not B and not C and E and F and X0) or (not A and X1 and X0) or (not A and not D and F) or (not A and not D and E) or (not A and B and D and not E and not F) or (not B and not C and not D and F) or (not B and not C and not D and E) or (A and not B and not C and D and not E and not F) or (not B and not C and X1 and X0) or (not B and not D and not E and not F and X0) or (not A and not B and not E and not F and X1) or (not A and B and not E and not F and X0) or (not A and B and not E and F and X1) or (A and not B and not C and not E and F and X1);")
+
+# Asignación de KSE
+print("KSE    <=    (not A and not B and not E) or (not A and not B and not C and F and X0) or (not A and not B and not D and F and X0) or (not A and not E and F) or (not A and B and E and not F) or (not B and not C and not E and F) or (A and not B and not C and E and not F) or (not B and not D and not E and not F and X0) or (not A and not B and not F and X1) or (not A and not B and C and D and not F) or (not A and not B and C and D and X1) or (not A and B and not F and X0) or (not A and B and F and X1) or (A and not B and not C and F and X1) or (A and not B and not C and not F and X0);")
+
+# Asignación de KSF
+print("KSF    <=    (not A and not B and not C and not F) or (not A and not D and X0) or (not A and not B and not D and not F) or (not A and not B and not E and not F) or (not A and C and D and E and F) or (not A and B and F) or (not A and B and X1) or (A and not B and not C and F) or (not B and not C and X0) or (not B and not C and X1) or (not B and not D and not E and not F and X0) or (not B and not D and not E and not F and X1) or (not A and F and X1) or (not A and not F and X0);")
+
+
+print("Entradas <= B & C & D & E & F;")
 
 
 
@@ -152,3 +282,4 @@ for w in range (n-3):
         "0000000"
         
 
+print("end Behavioral;")
